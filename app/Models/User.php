@@ -18,6 +18,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
+        'confirm_token',
         'email',
         'password',
     ];
@@ -40,4 +42,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Confirmed the email
+     */
+    public function isConfirmed()
+    {
+        return $this->confirm_token === null;
+    }
+
+    /**
+     * Confirms the user by removing the token
+     */
+    public function confirm()
+    {
+        $this->confirm_token = null;
+        $this->save();
+    }
 }

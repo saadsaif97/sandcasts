@@ -4,7 +4,7 @@
 
 <!-- Header -->
 <header class="header text-white h-fullscreen pb-80"
-   style="background-image: url({{ asset('https://source.unsplash.com/1600x900/?nature,water') }}" data-overlay="9">
+   style="background-image: url('https://source.unsplash.com/1600x900/?nature,water')" data-overlay="9">
    <div class="container text-center">
 
       <div class="row h-100">
@@ -121,3 +121,14 @@
    </div>
 </div>
 @endsection
+
+
+@if(session()->has('login'))
+<script>
+   document.addEventListener('DOMContentLoaded', () => {
+      $(function () {
+         $('#loginModal').modal('show');
+      });
+   })
+</script>
+@endif

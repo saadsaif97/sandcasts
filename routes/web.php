@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\User;
+use App\Http\Controllers\ConfirmEmailController;
+use App\Mail\ConfirmYourEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +33,6 @@ Route::get('/custom', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/register/confirm', [ConfirmEmailController::class, 'index'])->name('confirm-email');
 

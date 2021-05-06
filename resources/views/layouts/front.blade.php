@@ -27,7 +27,7 @@
 
             <div class="navbar-left">
                <button class="navbar-toggler" type="button">&#9776;</button>
-               <a class="navbar-brand" href="../index.html">
+               <a class="navbar-brand" href="{{ route('home') }}">
                   <img class="logo-dark" src="{{ asset('front/img/logo-dark.png')}}" alt="logo">
                   <img class="logo-light" src="{{ asset('front/img/logo-light.png')}}" alt="logo">
                </a>
@@ -41,6 +41,10 @@
                   <li class="nav-item">
                      <a class="nav-link" data-toggle="modal" data-target="#loginModal"
                         style="cursor: pointer;">Login</a>
+                  </li>
+
+                  <li class="nav-item">
+                     <a class="nav-link" href="{{ route('register') }}" style="cursor: pointer;">Register</a>
                   </li>
                   @else
 
