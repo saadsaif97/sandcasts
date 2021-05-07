@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ConfirmEmailController;
-use App\Mail\ConfirmYourEmail;
+use App\Http\Controllers\SeriesContoller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -35,4 +35,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/register/confirm', [ConfirmEmailController::class, 'index'])->name('confirm-email');
+
+Route::prefix('admin')->group(function () {
+    Route::resource('series', SeriesContoller::class);
+});
 

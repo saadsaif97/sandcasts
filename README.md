@@ -170,3 +170,10 @@ to open the login model, pass the session to home page and open the dialog box
 @endif
 
 ```
+
+benifit of custom request is that we can apply middleware to authoriz person,
+rather than the if else in controller to check authorized person
+
+To access the parts of the HTTP request, go to Illuminate\Http folder vendors laravel
+
+Also you can seek into the uploaded file functions in uploadedFile.php in Illuminate\Http
