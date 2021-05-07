@@ -183,3 +183,11 @@ Also you can seek into the uploaded file functions in uploadedFile.php in Illumi
 best case is that the controller should have maximum 2, 3 lines
 
 for example: you can put the roles, storage and creation in the customRequest
+
+assertSessionHas worked after post request, but was not working independently
+
+to assert the sessionHasErrors, you must turn off:
+
+```
+$this->withoutExceptionHandling()
+```

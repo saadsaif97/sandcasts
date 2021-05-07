@@ -8,7 +8,6 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-use function PHPUnit\Framework\assertTrue;
 
 class CreateSeriesTest extends TestCase
 {
@@ -28,12 +27,53 @@ class CreateSeriesTest extends TestCase
             'title' => 'fake series',
             'image' => UploadedFile::fake()->image('fake-series.png'),
             'description' => 'fake series description',
-        ])->assertRedirect()->withSession(['success','Series created successfully']);
+        ])
+        ->assertRedirect('/admin/series')
+        ->assertSessionHas('success','Series created successfully');
 
         $this->assertTrue(Storage::exists("series/fake-series.png"));
 
         $this->assertDatabaseHas('series',[
             'slug' => 'fake-series'
         ]);
+    }
+
+    public function test_a_series_must_have_title()
+    {
+        $this->post('/admin/series',[
+            'title' => '',
+            'image' => UploadedFile::fake()->image('fake-series.png'),
+            'description' => 'fake series description',
+        ])
+        ->assertSessionHasErrors('title');
+    }
+
+    public function test_a_series_must_have_description()
+    {
+        $this->post('/admin/series',[
+            'title' => '',
+            'image' => UploadedFile::fake()->image('fake-series.png'),
+        ])
+        ->assertSessionHasErrors('description');
+    }
+
+    public function test_a_series_must_have_image()
+    {
+        $this->post('/admin/series',[
+            'title' => '',
+            'description' => 'fake series description',
+        ])
+        ->assertSessionHasErrors('image');
+    }
+
+
+    public function test_a_series_must_have_valid_image()
+    {
+        $this->post('/admin/series',[
+            'title' => '',
+            'image' => 'STRING_INVALID_IMAGE',
+            'description' => 'fake series description',
+        ])
+        ->assertSessionHasErrors('image');
     }
 }

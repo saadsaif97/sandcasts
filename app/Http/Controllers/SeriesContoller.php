@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateSeriesRequest;
-use App\Models\Series;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class SeriesContoller extends Controller
 {
@@ -41,7 +39,7 @@ class SeriesContoller extends Controller
 
         session()->flash('success', 'Series created successfully');
 
-        return back();
+        return redirect(route('series.index'));
     }
 
     /**
