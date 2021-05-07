@@ -37,22 +37,9 @@ class SeriesContoller extends Controller
      */
     public function store(CreateSeriesRequest $request)
     {
-        $uploadedImage = $request->image;
-        $imageExtension = $uploadedImage->getClientOriginalExtension();
+        $request->storeImageAndCreateSeries();
 
-        $title = $request->title;
-
-        $imageName =  Str::slug($title).'.'.$imageExtension;
-        $image_url = $uploadedImage->storePubliclyAs('series', $imageName);
-
-        Series::create([
-            'title' => $title,
-            'slug' => Str::slug($title),
-            'image_url' => $image_url,
-            'description' => $request->description,
-        ]);
-
-        session()->flash('success');
+        session()->flash('success', 'Series created successfully');
 
         return back();
     }

@@ -177,3 +177,9 @@ rather than the if else in controller to check authorized person
 To access the parts of the HTTP request, go to Illuminate\Http folder vendors laravel
 
 Also you can seek into the uploaded file functions in uploadedFile.php in Illuminate\Http
+
+---
+
+best case is that the controller should have maximum 2, 3 lines
+
+for example: you can put the roles, storage and creation in the customRequest
