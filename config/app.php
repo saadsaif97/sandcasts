@@ -123,7 +123,7 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
-    'developers' => [
+    'admins' => [
         'saadgfx97@gmail.com'
     ],
 
