@@ -191,3 +191,61 @@ to assert the sessionHasErrors, you must turn off:
 ```
 $this->withoutExceptionHandling()
 ```
+
+instead of logging in laravel test, you should use:
+
+```
+   $this->actingAs($user);
+```
+
+to create the user in by using factory we can use:
+
+```
+User::factory()->make()
+```
+
+instead of moking admin user from config file, you should push the test user to admin array in config
+and act as that user to test the functionality
+
+null constraint failed is thrown when a field given to create model is empty and not defined as nullable
+
+in test class make method loginAdmin to not to repeat the code for login as admin
+
+we can use route model binding with slug instead of id by overwriting the getRouteKeyName method in model
+
+route key for model can be overwritten by creating getRouteKeyName method in model class
+
+in vuejs, the key is must to render the components, unlike in react
+where the components can be rendered without key in the loop
+
+to import component you should import as default
+
+subscribe to emit from parent in mounted method of child
+
+---
+
+we have done implicit route model binding by default in laravel BUT we can also do the implicit route model binding
+in the route service provider boot method, you can bind a custom route key to the model and then resolve that key explicily
+according to your needs
+
+```
+Route::model('series_by_id', Series::class);
+Route::bind('series_by_id', function($id){
+   return Series::findOrFail($id);
+});
+```
+
+in web routes
+
+```
+Route::get('{series_by_id}', function (Series $series) {
+    dd($series);
+});
+```
+
+---
+
+create method returns status 201
+
+$series->lessons   <==== returns the collection
+$series->lessons() <==== returns the query builder

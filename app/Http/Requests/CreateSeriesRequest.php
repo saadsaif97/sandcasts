@@ -40,12 +40,16 @@ class CreateSeriesRequest extends FormRequest
      */
     public function storeImageAndCreateSeries()
     {
-        Series::create([
+        $series = Series::create([
             'title' => $this->title,
             'slug' => Str::slug($this->title),
             'image_url' => $this->storeSeriesImage(),
             'description' => $this->description,
         ]);
+
+        session()->flash('success', 'Series created successfully');
+
+        return redirect(route('series.show', $series->slug));
     }
 
     /**

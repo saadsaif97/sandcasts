@@ -20,7 +20,7 @@ class Administrator
         if (auth()->check()) 
         {
 
-            if(in_array(auth()->user()->email,config('app.admins')))
+            if(auth()->user()->isAdmin())
             {
                 return $next($request);
             }

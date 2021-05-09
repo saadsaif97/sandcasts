@@ -4,12 +4,10 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require("./bootstrap");
-require("./admin-app");
+window.Vue = require("vue").default;
 
-// we have registered vue in admin-app
-Vue.component("vue-login", require("./components/Login.vue").default);
+Vue.component("vue-lesssons", require("./components/Lessons.vue").default);
 
 const app = new Vue({
-    el: "#app"
+    el: "#admin-app"
 });
