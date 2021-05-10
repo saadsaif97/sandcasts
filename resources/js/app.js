@@ -5,8 +5,8 @@
  */
 
 require("./bootstrap");
-require("./admin-app");
 
+window.Vue = require("vue").default;
 // we have registered vue in admin-app
 Vue.component("vue-login", require("./components/Login.vue").default);
 

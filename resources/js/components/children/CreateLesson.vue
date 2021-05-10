@@ -152,6 +152,7 @@ export default {
                             this.$parent.$emit("lesson_created", res.data);
                             this.lesson = new Lesson({});
                             $("#createLessonModal").modal("hide");
+                            Vue.$toast.success("Lesson Created Successfully");
                         }
                     })
                     .catch(err => console.log(err));
@@ -170,6 +171,7 @@ export default {
                         this.$parent.$emit("lesson_updated", res.data);
                         $("#createLessonModal").modal("hide");
                         this.lesson = new Lesson({});
+                        Vue.$toast.success("Lesson Updated Successfully");
                     })
                     .catch(err => console.log(err));
             }

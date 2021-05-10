@@ -84,6 +84,7 @@ export default {
                       .delete(`/admin/${this.series_id}/lessons/${id}`)
                       .then(res => {
                           this.lessons.splice(index, 1);
+                          Vue.$toast.success("Lesson Deleted Successfully");
                       })
                       .catch(err => console.log(err))
                 : null;
