@@ -155,7 +155,7 @@ export default {
                             Vue.$toast.success("Lesson Created Successfully");
                         }
                     })
-                    .catch(err => console.log(err));
+                    .catch(error => window.handleAxiosErrors(error));
             }
         },
         updateSeriesLesson() {
@@ -173,7 +173,7 @@ export default {
                         this.lesson = new Lesson({});
                         Vue.$toast.success("Lesson Updated Successfully");
                     })
-                    .catch(err => console.log(err));
+                    .catch(error => window.handleAxiosErrors(error));
             }
         },
         validateRules() {

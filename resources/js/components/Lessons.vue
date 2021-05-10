@@ -86,7 +86,9 @@ export default {
                           this.lessons.splice(index, 1);
                           Vue.$toast.success("Lesson Deleted Successfully");
                       })
-                      .catch(err => console.log(err))
+                      .catch(error => {
+                          window.handleAxiosErrors(error);
+                      })
                 : null;
         }
     }

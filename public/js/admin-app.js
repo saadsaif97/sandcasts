@@ -1933,8 +1933,8 @@ __webpack_require__.r(__webpack_exports__);
         _this2.lessons.splice(index, 1);
 
         Vue.$toast.success("Lesson Deleted Successfully");
-      })["catch"](function (err) {
-        return console.log(err);
+      })["catch"](function (error) {
+        window.handleAxiosErrors(error);
       }) : null;
     }
   }
@@ -2116,8 +2116,8 @@ var Lesson = function Lesson(lesson) {
             $("#createLessonModal").modal("hide");
             Vue.$toast.success("Lesson Created Successfully");
           }
-        })["catch"](function (err) {
-          return console.log(err);
+        })["catch"](function (error) {
+          return window.handleAxiosErrors(error);
         });
       }
     },
@@ -2133,8 +2133,8 @@ var Lesson = function Lesson(lesson) {
           $("#createLessonModal").modal("hide");
           _this3.lesson = new Lesson({});
           Vue.$toast.success("Lesson Updated Successfully");
-        })["catch"](function (err) {
-          return console.log(err);
+        })["catch"](function (error) {
+          return window.handleAxiosErrors(error);
         });
       }
     },
@@ -50755,6 +50755,17 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js"
 Vue.use((vue_toast_notification__WEBPACK_IMPORTED_MODULE_0___default()), {
   position: "top-right"
 });
+
+window.handleAxiosErrors = function (error) {
+  console.log(error);
+
+  if (error.response.status === 422) {
+    Vue.$toast.error("You have some validation error");
+  }
+
+  Vue.$toast.error("Something went wrong. Please refresh the page and try again");
+};
+
 Vue.component("vue-lesssons", __webpack_require__(/*! ./components/Lessons.vue */ "./resources/js/components/Lessons.vue").default);
 var app = new Vue({
   el: "#admin-app"

@@ -15,6 +15,17 @@ Vue.use(VueToast, {
     position: "top-right"
 });
 
+window.handleAxiosErrors = error => {
+    console.log(error);
+    if (error.response.status === 422) {
+        Vue.$toast.error("You have some validation error");
+    }
+
+    Vue.$toast.error(
+        "Something went wrong. Please refresh the page and try again"
+    );
+};
+
 Vue.component("vue-lesssons", require("./components/Lessons.vue").default);
 
 const app = new Vue({

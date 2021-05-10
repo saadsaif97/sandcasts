@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateSeriesRequest;
+use App\Http\Requests\UpdateSeriesRequest;
 use App\Models\Series;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class SeriesContoller extends Controller
 {
@@ -15,7 +17,7 @@ class SeriesContoller extends Controller
      */
     public function index()
     {
-        // 
+        return view('admin.series.all')->with("series",Series::all());
     }
 
     /**
@@ -25,7 +27,7 @@ class SeriesContoller extends Controller
      */
     public function create()
     {
-        return view('admin.series.create')->with('series',Series::find(1));
+        return view('admin.series.create');
     }
 
     /**
@@ -56,9 +58,9 @@ class SeriesContoller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Series $series)
     {
-        //
+        return view('admin.series.edit')->with('series',$series);
     }
 
     /**
@@ -68,9 +70,24 @@ class SeriesContoller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateSeriesRequest $request, Series $series)
     {
-        //
+
+        if ($request->hasFile('image')) {
+            $request->image_url = $request->storeSeriesImage();
+            Storage::delete($series->image_url);
+        }
+
+        $series->update([
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'image_url' => $request->image_url,
+            'description' => $request->description,
+        ]);
+
+        session()->flash('success','Series updated successfully');
+
+        return redirect(route('series.index'));
     }
 
     /**
@@ -79,8 +96,12 @@ class SeriesContoller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Series $series)
     {
-        //
+        $series->delete();
+
+        session()->flash('success','Series Deleted Successfully');
+
+        return back();
     }
 }

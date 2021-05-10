@@ -17,8 +17,8 @@
             </a>
             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                <nav class="sb-sidenav-menu-nested nav">
-                  <a class="nav-link" href="layout-static.html">Create Series</a>
-                  <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+                  <a class="nav-link" href="{{ route('series.index') }}">All Series</a>
+                  <a class="nav-link" href="{{ route('series.create') }}">Create Series</a>
                </nav>
             </div>
             <!-- ----------------------------------------- -->
