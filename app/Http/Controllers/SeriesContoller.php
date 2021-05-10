@@ -74,16 +74,18 @@ class SeriesContoller extends Controller
     {
 
         if ($request->hasFile('image')) {
-            $request->image_url = $request->storeSeriesImage();
             Storage::delete($series->image_url);
+
+            $series->update([
+                'title' => $request->title,
+                'slug' => Str::slug($request->title),
+                'image_url' => $request->storeSeriesImage(),
+                'description' => $request->description,
+            ]);
+        }else{
+            $series->update($request->validated());
         }
 
-        $series->update([
-            'title' => $request->title,
-            'slug' => Str::slug($request->title),
-            'image_url' => $request->image_url,
-            'description' => $request->description,
-        ]);
 
         session()->flash('success','Series updated successfully');
 
