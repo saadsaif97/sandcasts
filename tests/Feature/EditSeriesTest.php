@@ -35,7 +35,8 @@ class EditSeriesTest extends TestCase
         $this->assertTrue(Storage::exists('series/updated-title.png'));
         
         $this->assertDatabaseHas('series',[
-            'title' => 'updated title'
+            'title' => 'updated title',
+            'image_url' => 'series/updated-title.png'
         ]);
     }
 
@@ -55,7 +56,7 @@ class EditSeriesTest extends TestCase
         
         
         $this->assertDatabaseHas('series',[
-            'title' => 'updated title'
+            'title' => 'updated title',
         ]);
     }
 }

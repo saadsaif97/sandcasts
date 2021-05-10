@@ -72,20 +72,7 @@ class SeriesContoller extends Controller
      */
     public function update(UpdateSeriesRequest $request, Series $series)
     {
-
-        if ($request->hasFile('image')) {
-            Storage::delete($series->image_url);
-
-            $series->update([
-                'title' => $request->title,
-                'slug' => Str::slug($request->title),
-                'image_url' => $request->storeSeriesImage(),
-                'description' => $request->description,
-            ]);
-        }else{
-            $series->update($request->validated());
-        }
-
+        $request->updateSeries($series);
 
         session()->flash('success','Series updated successfully');
 

@@ -2,21 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Series;
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class UpdateSeriesRequest extends FormRequest
+class UpdateSeriesRequest extends SeriesRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -39,19 +29,19 @@ class UpdateSeriesRequest extends FormRequest
         ];
     }
 
-    /**
-     * Store the image in series folder
-     * 
-     * @return path to image after storing
-     */
-    public function storeSeriesImage()
+    
+    public function updateSeries($series)
     {
-        $imageExtension = $this->image->getClientOriginalExtension();
+        if ($this->hasFile('image')) {
+            Storage::delete($series->image_url);
+            $series->image_url = $this->storeSeriesImage();
+        }
 
-        $imageName =  Str::slug($this->title).'.'.$imageExtension;
+        $series->title = $this->title;
+        $series->slug = Str::slug($this->title);
+        $series->description = $this->description;
 
-        return $this->image->storePubliclyAs('series', $imageName);
+        $series->save();
     }
-
     
 }
