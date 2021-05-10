@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateSeriesRequest;
 use App\Http\Requests\UpdateSeriesRequest;
 use App\Models\Series;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class SeriesContoller extends Controller
 {

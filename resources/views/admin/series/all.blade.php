@@ -32,10 +32,13 @@
                </form>
             </td>
 
-
          </tr>
          @empty
-         <tr>No series yet</tr>
+         <tr>
+            <td>
+               <p>No series yet...</p>
+            </td>
+         </tr>
          @endforelse
 
       </tbody>

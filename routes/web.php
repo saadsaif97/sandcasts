@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\ConfirmEmailController;
-use App\Http\Controllers\LessonController;
-use App\Http\Controllers\SeriesContoller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,7 +35,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/register/confirm', [ConfirmEmailController::class, 'index'])->name('confirm-email');
 
-Route::middleware('admin')->prefix('admin')->group(function () {
-    Route::resource('series', SeriesContoller::class);
-    Route::resource('{series_by_id}/lessons', LessonController::class);
-});
+// Route::middleware('admin')->prefix('admin')->group(function () {
+//     Route::resource('series', SeriesContoller::class);
+//     Route::resource('{series_by_id}/lessons', LessonController::class);
+// });
