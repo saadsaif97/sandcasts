@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 use League\CommonMark\Inline\Element\Strong;
 use Tests\TestCase;
 
-class EditSeriesTest extends TestCase
+class UpdateSeriesTest extends TestCase
 {
 
     use RefreshDatabase;

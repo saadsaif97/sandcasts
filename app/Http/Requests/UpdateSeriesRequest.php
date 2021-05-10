@@ -17,7 +17,7 @@ class UpdateSeriesRequest extends SeriesRequest
     {
         if ($this->hasFile('image')) {
             return [
-                'title' => "required|unique:series,title,$this->id,id",
+                'title' => "required",
                 'image' => 'image',
                 'description' => 'required',
             ];

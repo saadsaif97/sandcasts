@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class SeriesRequest extends FormRequest
@@ -29,7 +30,8 @@ class SeriesRequest extends FormRequest
 
         $imageName =  Str::slug($this->title).'.'.$imageExtension;
 
-        return $this->image->storePubliclyAs('series', $imageName);
+        return $this->image->storeAs('series', $imageName);
+        return $this->image->storePubliclyAs('public/series', $imageName);
     }
 
 }

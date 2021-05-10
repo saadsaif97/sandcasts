@@ -18,7 +18,8 @@
          <tr>
             <td>{{ $s->title }}</td>
             <td>
-               <img src="{{ asset($s->image_url) }}" alt="{{ $s->title }}" style="width: 120px; height: auto;">
+               <img src="{{ asset('storage/'.$s->image_url) }}" alt="{{ $s->title }}"
+                  style="width: 120px; height: auto;">
             </td>
             <td>
                <a href="{{ route('series.edit', $s->slug) }}" class="btn btn-info btn-sm">Edit</a>

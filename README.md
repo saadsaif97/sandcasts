@@ -249,3 +249,14 @@ create method returns status 201
 
 $series->lessons   <==== returns the collection
 $series->lessons() <==== returns the query builder
+
+---
+
+we can create custom middleware group by registering it in the route service provider
+and making custom route group
+
+---
+
+great advantage of test suite is that you can refactor with peace of mind
+
+great advantage of the refactoring and DRY aproach is that, you modify once and applies to all places
