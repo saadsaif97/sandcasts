@@ -42,15 +42,16 @@
          <div class="col-md-6 ml-auto">
             <h4>{{ $s->title }}</h4>
             <p>{{ $s->description }}</p>
+            <h3>{{ $s->image_url }}</h3>
             <a href="#">Read More <i class="ti-angle-right fs-10 ml-1"></i></a>
          </div>
 
          <div class="col-md-5 order-md-first">
-            <img class="rounded shadow-2" src="{{ asset('storage/'.$s->image_url) }}" alt="...">
+            <img class="rounded shadow-2" src="{{ {{ $s->image_path }} }}" alt="...">
          </div>
       </div>
       @empty
-         <h3>No series in the list yet...</h3>
+      <h3>No series in the list yet...</h3>
       @endforelse
 
 
