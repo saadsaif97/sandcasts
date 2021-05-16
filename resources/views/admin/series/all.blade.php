@@ -16,7 +16,7 @@
       <tbody>
          @forelse ($series as $s)
          <tr>
-            <td>{{ $s->title }}</td>
+            <td><a href="{{ route('series.show', $s->slug) }}">{{ $s->title }}</a></td>
             <td>
                <img src="{{ asset('storage/'.$s->image_url) }}" alt="{{ $s->title }}"
                   style="width: 120px; height: auto;">

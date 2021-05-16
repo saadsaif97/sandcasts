@@ -70,22 +70,19 @@
          </div>
       </nav><!-- /.navbar -->
 
-      @yield('header')
-
-      <!-- Main Content -->
-      <main class="main-content">
-
-
-         @yield('content')
-
-
-
-      </main>
-
       <div id="app">
+
+         @yield('header')
+
+         <!-- Main Content -->
+         <main class="main-content">
+            @yield('content')
+         </main>
+
          @guest
          <vue-login></vue-login>
          @endguest
+
       </div>
 
       <!-- Footer -->

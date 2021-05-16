@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 
 @section('content')
-<h1 class="mt-4">Series: {{ $series->title }}</h1>
 
 
 <div class="row">
-   <div class="col">
+   <div class="col col-lg-6 offset-lg-3">
+      <h3 class="my-4">{{ $series->title }}</h3>
       <div class="card mb-4">
          <div class="card-header">
             <i class="fas fa-plus mr-1"></i>

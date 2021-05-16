@@ -17,15 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');
+Route::get('/series/{series}', [FrontendController::class, 'singleSeries'])->name('series.single');
+Route::get('/series/{series}/watch', [FrontendController::class, 'watchSeries'])->name('series.watch');
 
 
 Route::get('/logout', function () { Auth::logout(); });
-
-Route::get('/custom', function () { return view('front.index'); });
-
-
 Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::get('/register/confirm', [ConfirmEmailController::class, 'index'])->name('confirm-email');

@@ -260,3 +260,10 @@ and making custom route group
 great advantage of test suite is that you can refactor with peace of mind
 
 great advantage of the refactoring and DRY aproach is that, you modify once and applies to all places
+
+there is no last mesthod in query builder
+
+```
+return $this->series->lessons()->where('episode_number', '<', $this->episode_number)->orderBy('episode_number', 'asc')->last();  <=== FAILS
+return $this->series->lessons()->where('episode_number', '<', $this->episode_number)->orderBy('episode_number', 'desc')->first(); <=== PASSES
+```

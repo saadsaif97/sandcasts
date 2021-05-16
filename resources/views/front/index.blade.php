@@ -15,7 +15,6 @@
             <a href="#" class="btn btn-primary btn-round">See demos</a>
             <a href="#" class="btn btn-outline-light btn-round">Features</a>
 
-
          </div>
 
          <div class="col-12 align-self-end text-center">
@@ -42,12 +41,11 @@
          <div class="col-md-6 ml-auto">
             <h4>{{ $s->title }}</h4>
             <p>{{ $s->description }}</p>
-            <h3>{{ $s->image_url }}</h3>
-            <a href="#">Read More <i class="ti-angle-right fs-10 ml-1"></i></a>
+            <a href="{{ route('series.single', $s->slug) }}">Read More <i class="ti-angle-right fs-10 ml-1"></i></a>
          </div>
 
          <div class="col-md-5 order-md-first">
-            <img class="rounded shadow-2" src="{{ {{ $s->image_path }} }}" alt="...">
+            <img class="rounded shadow-2" src="{{ $s->image_path }}" alt="{{ $s->title }}">
          </div>
       </div>
       @empty

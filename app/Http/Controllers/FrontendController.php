@@ -11,4 +11,14 @@ class FrontendController extends Controller
     {
         return view('front.index')->with('series',Series::all());
     }
+
+    public function singleSeries(Series $series)
+    {
+        return view('front.series.index')->with('series',$series);
+    }
+
+    public function watchSeries(Series $series)
+    {
+        return view('front.series.watch')->with('series',$series);
+    }
 }
