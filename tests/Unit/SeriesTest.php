@@ -102,12 +102,6 @@ class SeriesTest extends TestCase
 
     public function test_a_user_can_get_series_being_watched()
     {
-        // user
-        // 2 lessons each for 3 series
-        // user completed 2 lessons 1 from series 1 and 1 from series 2
-        // getStartedSeries gives us 2 series collections
-        // assert random return is instance of Series::class
-        // array having ids of these collection have 1 and 2 (SERIES STARTED)
         $this->flushRedis();
 
         $user = User::factory()->create();
@@ -135,5 +129,32 @@ class SeriesTest extends TestCase
         $this->assertTrue(in_array(1, $idsOfStartedSeries));
         $this->assertTrue(in_array(2, $idsOfStartedSeries));
         $this->assertFalse(in_array(3, $idsOfStartedSeries));
+    }
+
+    public function test_a_user_can_get_total_number_of_completed_lessons()
+    {
+
+        $this->flushRedis();
+
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        // lessons belong to series 1
+        $lesson1 = Lesson::factory()->create();
+        $lesson2 = Lesson::factory()->create([ 'series_id' => '1' ]); 
+        // lessons belong to series 2
+        $lesson3 = Lesson::factory()->create();
+        $lesson4 = Lesson::factory()->create([ 'series_id' => '2' ]); 
+        // lessons belong to series 3
+        $lesson5 = Lesson::factory()->create();
+        $lesson6 = Lesson::factory()->create([ 'series_id' => '3' ]); 
+
+        $user->completeLesson($lesson1);
+        $user->completeLesson($lesson2);
+        $user->completeLesson($lesson5);
+
+        $this->assertEquals($user->getTotalNumberOfCompletedLessons(), 3);
+
+
     }
 }

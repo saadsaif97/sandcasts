@@ -71,19 +71,41 @@ trait Learning {
     }
 
     /**
+     * Gets started series id
+     */
+    public function getStartedSeriesIds()
+    {
+      return Redis::keys("user:{$this->id}:series:*");  
+    }
+
+    /**
      * Gets the started series as collections
      */
 
      public function getStartedSeries()
      {
-        $keys = Redis::keys("user:{$this->id}:series:*");
-
         $seriesIds = array_map(function($key){
             return explode(':', $key)[3];
-        },$keys);
+        }, $this->getStartedSeriesIds());
         
         return collect($seriesIds)->map(function($id){
             return Series::find($id);
         });
      }
+
+     /**
+      * Gets total number of lesson from all series
+      */
+
+      public function getTotalNumberOfCompletedLessons()
+      {
+        $keys = Redis::keys("user:{$this->id}:series:*");
+        $total_lessons = 0;
+
+        foreach($keys as $key):
+            $total_lessons += count(Redis::smembers($key));
+        endforeach;
+
+        return  $total_lessons;
+      }
 }
