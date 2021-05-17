@@ -48,8 +48,14 @@
                   </li>
                   @else
 
+                  @if(auth()->user()->isAdmin())
                   <li class="nav-item">
-                     <a class="nav-link">Hey {{ auth()->user()->name }}</a>
+                     <a class="nav-link" href="{{ route('series.index') }}">Dashboard</a>
+                  </li>   
+                  @endif
+
+                  <li class="nav-item">
+                     <a class="nav-link" href="{{ route('profile') }}">Profile</a>
                   </li>
 
                   <li class="nav-item">

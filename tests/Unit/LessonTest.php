@@ -19,10 +19,7 @@ class LessonTest extends TestCase
      */
     public function test_a_lesson_can_get_next_and_previous_lesson()
     {
-        // create lessons
-        // use nextLesson and previousLessons methods on the lesson
-        // assert the results
-        // if no result, assert null
+        
         $lesson1 = Lesson::factory()->create([ 'episode_number' => 3 ]);
         $lesson2 = Lesson::factory()->create([ 'episode_number' => 2, 'series_id' => 1 ]);
         $lesson3 = Lesson::factory()->create([ 'episode_number' => 1, 'series_id' => 1 ]);
@@ -34,6 +31,37 @@ class LessonTest extends TestCase
         $this->assertEquals($lesson1->previousLesson()->id, $lesson2->id);
         $this->assertEquals($lesson2->previousLesson()->id, $lesson3->id);
         $this->assertNull($lesson3->previousLesson());
+
+    }
+
+    public function test_a_user_can_get_completed_lessons()
+    {
+        $this->flushRedis();
+        $user = User::factory()->create();
+        
+        $lesson1 = Lesson::factory()->create();
+        $lesson2 = Lesson::factory()->create([ 'series_id' => 1 ]);
+        $lesson3 = Lesson::factory()->create([ 'series_id' => 1 ]);
+        $lesson4 = Lesson::factory()->create([ 'series_id' => 1 ]);
+        
+        $user->completeLesson($lesson1);
+        $user->completeLesson($lesson3);
+        
+        $this->assertEquals($user->getCompletedLessonsInSeries($lesson1->series), [1,3]);
+    }
+
+    public function test_a_user_has_completed_a_lesson()
+    {
+        $this->flushRedis();
+        $user = User::factory()->create();
+        
+        $lesson1 = Lesson::factory()->create();
+        $lesson2 = Lesson::factory()->create([ 'series_id' => 1 ]);
+        
+        $user->completeLesson($lesson1);
+
+        $this->assertTrue($user->hasCompletedLesson($lesson1));
+        $this->assertFalse($user->hasCompletedLesson($lesson2));
 
     }
 }

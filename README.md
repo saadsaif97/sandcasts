@@ -267,3 +267,13 @@ there is no last mesthod in query builder
 return $this->series->lessons()->where('episode_number', '<', $this->episode_number)->orderBy('episode_number', 'asc')->last();  <=== FAILS
 return $this->series->lessons()->where('episode_number', '<', $this->episode_number)->orderBy('episode_number', 'desc')->first(); <=== PASSES
 ```
+
+Laravel way and PHP way to get ids from collection
+
+```
+$idsOfStartedSeries = $startedSeries->pluck('id'); <==== LARAVEL WAY
+
+$idsOfStartedSeries = array_map(function($series){ <==== PHP WAY
+    return $series['id'];
+}, $startedSeries->toArray());
+```

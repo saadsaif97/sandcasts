@@ -1,5 +1,11 @@
 @extends('layouts.front')
 
+@php
+$nextLesson = $lesson->nextLesson();
+$previousLesson = $lesson->previousLesson();
+
+@endphp
+
 @section('header')
 
 <!-- Header -->
@@ -25,8 +31,39 @@
       </header>
 
       <div class="row justify-content-center">
-         <vimeo-player :lesson="{{ json_encode($series->lessons->first()) }}"></vimeo-player>
+         <vimeo-player :lesson="{{ json_encode($lesson) }}" @if($nextLesson)
+            next_lesson_url="{{ route('series.watch', ['series' => $series->slug, 'lesson' => $nextLesson->id ]) }}"
+            @endif></vimeo-player>
       </div>
+
+      <div class="d-flex justify-content-center w-100 my-4">
+         @if($previousLesson)
+         <a href="{{ route('series.watch', ['series' => $series->slug, 'lesson' => $previousLesson->id ]) }}"
+            class="btn btn-primary mr-1">Previous Lesson</a>
+         @endif
+
+         @if($nextLesson)
+         <a href="{{ route('series.watch', ['series' => $series->slug, 'lesson' => $nextLesson->id ]) }}"
+            class="btn btn-primary ml-1">Next Lesson</a>
+         @endif
+      </div>
+
+      <ul class="list-group">
+         @forelse($series->getOrderedLessons() as $l)
+         <li class="list-group-item
+         @if($l->id === $lesson->id)
+            active bg-light
+         @endif
+         ">
+            <a href="{{ route('series.watch', ['series' => $series->slug, 'lesson' => $l->id ]) }}">{{ $l->title }}</a>
+            @if(auth()->user()->hasCompletedLesson($l))
+            <span class="badge badge-pill badge-success">completed</span>
+            @endif
+         </li>
+         @empty
+         <p>No lesson in series yet...</p>
+         @endforelse
+      </ul>
    </div>
 </div>
 @endsection

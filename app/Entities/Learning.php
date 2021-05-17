@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use App\Models\Series;
 use Illuminate\Support\Facades\Redis;
 
 trait Learning {
@@ -15,6 +16,24 @@ trait Learning {
     {
         Redis::sadd("user:{$this->id}:series:{$lesson->series->id}", $lesson->id);
     }
+
+    /**
+     * Gets completed lessons in series
+     */
+
+     public function getCompletedLessonsInSeries($series)
+     {
+         return Redis::smembers("user:{$this->id}:series:{$series->id}");
+     }
+
+    /**
+     * Checks if user has complted lesson
+     */
+
+     public function hasCompletedLesson($lesson)
+     {
+         return in_array($lesson->id, $this->getCompletedLessonsInSeries($lesson->series));
+     }
 
     /**
      * Gets a series
@@ -50,4 +69,21 @@ trait Learning {
     {
        return $this->getNumberOfCompletedLessonInSeries($series) > 0;
     }
+
+    /**
+     * Gets the started series as collections
+     */
+
+     public function getStartedSeries()
+     {
+        $keys = Redis::keys("user:{$this->id}:series:*");
+
+        $seriesIds = array_map(function($key){
+            return explode(':', $key)[3];
+        },$keys);
+        
+        return collect($seriesIds)->map(function($id){
+            return Series::find($id);
+        });
+     }
 }

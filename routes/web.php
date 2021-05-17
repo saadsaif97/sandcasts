@@ -17,8 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');
+Route::get('/profile', [FrontendController::class, 'profile'])->name('profile');
 Route::get('/series/{series}', [FrontendController::class, 'singleSeries'])->name('series.single');
-Route::get('/series/{series}/watch', [FrontendController::class, 'watchSeries'])->name('series.watch');
+Route::get('/series/{series}/watch/{lesson}', [FrontendController::class, 'watchSeries'])->name('series.watch');
+Route::post('/series/complete-lesson/{lesson}', [FrontendController::class, 'completeLesson'])->name('series.lesson.complete');
 
 
 Route::get('/logout', function () { Auth::logout(); });
