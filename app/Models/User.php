@@ -70,4 +70,13 @@ class User extends Authenticatable
         return in_array($this->email,config('app.admins'));
     }
 
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
 }

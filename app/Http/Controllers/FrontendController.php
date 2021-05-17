@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lesson;
 use App\Models\Series;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -33,8 +34,10 @@ class FrontendController extends Controller
         ]);
     }
 
-    public function profile()
+    public function profile(User $user)
     {
-        return view('front.series.profile');
+        return view('front.series.profile')
+                ->with('user', $user)
+                ->with('series', $user->getStartedSeries());
     }
 }

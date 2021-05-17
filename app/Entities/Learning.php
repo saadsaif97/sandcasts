@@ -90,7 +90,7 @@ trait Learning {
         
         return collect($seriesIds)->map(function($id){
             return Series::find($id);
-        });
+        })->filter();
      }
 
      /**

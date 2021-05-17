@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\ConfirmYourEmail;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Rules\isUniqueUsername;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use \Illuminate\Http\Request;
@@ -66,7 +67,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', new isUniqueUsername],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);

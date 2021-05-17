@@ -9,9 +9,9 @@
       <div class="row h-100">
          <div class="col-lg-8 mx-auto align-self-center">
 
-            <h1 class="display-4 mt-7">{{ auth()->user()->name }}</h1>
-            <p class="mb-8">{{ auth()->user()->username }}</p>
-            <h2>29</h2>
+            <h1 class="display-4 mt-7">{{ $user->name }}</h1>
+            <p class="mb-8">{{ $user->username }}</p>
+            <h2>{{ $user->getTotalNumberOfCompletedLessons() }}</h2>
             <p>Lessons completed</p>
 
          </div>
@@ -32,10 +32,23 @@
    <div class="container">
       <header class="section-header">
          <h2>Series Being Wached</h2>
-         <hr>
-         <p>This is a sample text inside the header of section. You can use it to provide an introductory sentence to
-            your section content for the visitors of your website.</p>
       </header>
+
+      @forelse ($series as $s)
+      <div class="row gap-y align-items-center">
+         <div class="col-md-6 ml-auto">
+            <h4>{{ $s->title }}</h4>
+            <p>{{ $s->description }}</p>
+            <a href="{{ route('series.single', $s->slug) }}">Read More <i class="ti-angle-right fs-10 ml-1"></i></a>
+         </div>
+
+         <div class="col-md-5 order-md-first">
+            <img class="rounded shadow-2" src="{{ $s->image_path }}" alt="{{ $s->title }}">
+         </div>
+      </div>
+      @empty
+      <h3 class="text-center">No series started yet...</h3>
+      @endforelse
 
    </div>
 </section>
