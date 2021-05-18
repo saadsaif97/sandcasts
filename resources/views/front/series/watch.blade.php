@@ -37,12 +37,12 @@ $previousLesson = $lesson->previousLesson();
       </div>
 
       <div class="d-flex justify-content-center w-100 my-4">
-         @if($previousLesson)
+         @if($previousLesson->id !== $lesson->id)
          <a href="{{ route('series.watch', ['series' => $series->slug, 'lesson' => $previousLesson->id ]) }}"
             class="btn btn-primary mr-1">Previous Lesson</a>
          @endif
 
-         @if($nextLesson)
+         @if($nextLesson->id !== $lesson->id)
          <a href="{{ route('series.watch', ['series' => $series->slug, 'lesson' => $nextLesson->id ]) }}"
             class="btn btn-primary ml-1">Next Lesson</a>
          @endif
