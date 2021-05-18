@@ -27,6 +27,6 @@ Route::get('/register/confirm', [ConfirmEmailController::class, 'index'])->name(
 
 Route::middleware(['auth'])->group(function () {  
    Route::get('/series/{series}', [FrontendController::class, 'singleSeries'])->name('series.single');
-   Route::get('/series/{series}/watch/{lesson}', [FrontendController::class, 'watchSeries'])->name('series.watch');
+   Route::get('/series/{series}/watch/{lesson?}', [FrontendController::class, 'watchSeries'])->name('series.watch');
    Route::post('/series/complete-lesson/{lesson}', [FrontendController::class, 'completeLesson'])->name('series.lesson.complete');
 });
