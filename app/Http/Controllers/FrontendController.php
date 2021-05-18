@@ -16,13 +16,7 @@ class FrontendController extends Controller
 
     public function singleSeries(Series $series)
     {
-        $user = auth()->user();
-
-        if ($user->hasStartedSeries($series)) {
-            return redirect(route('series.watch', ['series' => $series, 'lesson' => $user->getNextLessonToWatch($series)]));
-        }
-
-        return redirect(route('series.watch', ['series' => $series, 'lesson' => $series->lessons->first()]));
+        return view('front.series.index')->with('series', $series);
     }
 
     public function watchSeries(Series $series, Lesson $lesson)

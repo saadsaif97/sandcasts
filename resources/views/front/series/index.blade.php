@@ -13,7 +13,7 @@
             <p class="opacity-70 text-uppercase small ls-1 mb-8">{{ $series->description }}</p>
             @auth
             @hasStartedSeries($series)
-            <a href="{{ route('series.watch', ['series' => $series->slug, 'lesson' => $series->lessons->first()->id]) }}"
+            <a href="{{ route('series.watch', ['series' => $series->slug, 'lesson' => auth()->user()->getNextLessonToWatch($series)->id ]) }}"
                class="btn btn-primary btn-round">Continue Learning</a>
             @else
             <a href="{{ route('series.watch', ['series' => $series->slug, 'lesson' => $series->lessons->first()->id]) }}"
@@ -49,6 +49,9 @@
          @forelse($series->getOrderedLessons() as $l)
          <li class="list-group-item">
             <a href="{{ route('series.watch', ['series' => $series->slug, 'lesson' => $l->id ]) }}">{{ $l->title }}</a>
+            @if(auth()->user()->hasCompletedLesson($l))
+            <span class="badge badge-pill badge-success">completed</span>
+            @endif
          </li>
          @empty
          <p>No lesson in series yet...</p>
