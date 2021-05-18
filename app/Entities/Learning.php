@@ -2,14 +2,17 @@
 
 namespace App\Entities;
 
+use App\Models\Lesson;
 use App\Models\Series;
 use Illuminate\Support\Facades\Redis;
 
 trait Learning {
    /**
-     * Gets a lessons
-     * 
      * Marks it as completed by storing in the Redis set for completed lessons
+     * 
+     * @param App\Models\Lesson $lesson 
+     * 
+     * @return void
      */
 
     public function completeLesson($lesson)
@@ -19,6 +22,8 @@ trait Learning {
 
     /**
      * Gets completed lessons in series
+     * 
+     * @return Array of completed lessons ids
      */
 
      public function getCompletedLessonsInSeries($series)
@@ -28,6 +33,10 @@ trait Learning {
 
     /**
      * Checks if user has complted lesson
+     * 
+     * @param App\Models\Lesson $lesson
+     * 
+     * @return bool
      */
 
      public function hasCompletedLesson($lesson)
@@ -36,9 +45,11 @@ trait Learning {
      }
 
     /**
-     * Gets a series
-     * 
      * returns total completed lesson count
+     * 
+     * @param App\Models\Series $series
+     * 
+     * @return int
      */
 
     public function getNumberOfCompletedLessonInSeries($series)
@@ -50,6 +61,8 @@ trait Learning {
      * Gets a series as attribute
      * 
      * returns percentage of completed lessons from the series
+     * 
+     * @return int
      */
 
     public function getPercentageCompletedForSeries($series)
@@ -64,6 +77,10 @@ trait Learning {
      * Checks if the user has started a series or not
      * 
      * if user has completed atlest one lesson from series then return true
+     * 
+     * @param App\Models\Series $series
+     * 
+     * @return bool
      */
     public function hasStartedSeries($series)
     {
@@ -72,6 +89,8 @@ trait Learning {
 
     /**
      * Gets started series id
+     * 
+     * @return Array of keys each key is of format 'user:USER_ID:series:SERIES_ID'
      */
     public function getStartedSeriesIds()
     {
@@ -80,6 +99,8 @@ trait Learning {
 
     /**
      * Gets the started series as collections
+     * 
+     * @return Array[Series]
      */
 
      public function getStartedSeries()
@@ -95,6 +116,8 @@ trait Learning {
 
      /**
       * Gets total number of lesson from all series
+      * 
+      * @return Array[1,2,3] of ids
       */
 
       public function getTotalNumberOfCompletedLessons()
@@ -107,5 +130,16 @@ trait Learning {
         endforeach;
 
         return  $total_lessons;
+      }
+
+      /**
+       * Get next lesson to watch
+       * 
+       * @return Lesson
+       */
+      public function getNextLessonToWatch($series)
+      {
+        $last_complted_lesson_id = last($this->getCompletedLessonsInSeries($series));
+        return Lesson::findOrFail($last_complted_lesson_id)->nextLesson();
       }
 }
